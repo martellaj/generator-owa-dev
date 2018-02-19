@@ -1,12 +1,15 @@
 {
-    "name": "generator-owa-dev",
-    "version": "0.1.0",
-    "description": "",
-    "files": [
-        "generators"
-    ],
-    "keywords": ["yeoman-generator"],
-    "dependencies": {
-        "yeoman-generator": "^1.0.0"
-    }
+  "name": "generator-owa-dev",
+  "version": "0.1.0",
+  "description": "",
+  "files": [
+    "generators"
+  ],
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "inquirer": "^5.1.0",
+    "yeoman-generator": "^1.0.0"
+  }
 }
