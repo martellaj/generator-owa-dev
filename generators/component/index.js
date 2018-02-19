@@ -1,22 +1,11 @@
 const fs = require('fs');
 const Generator = require('yeoman-generator');
+const getCurrentFolderName = require('../../utils/getCurrentFolderName');
 const logger = require('../../utils/logger');
 
 module.exports = class extends Generator {
     constructor(args, opts) {
         super(args, opts);
-
-        /**
-         * Helper function to get the current working folder
-         * name.
-         */
-        this._getCurrentFolderName = function() {
-            const currentPath = process.cwd();
-            const pathParts = currentPath.split('/');
-            const currentFolder = pathParts[pathParts.length - 1];
-
-            return currentFolder;
-        }
 
         /**
          * Helper function to capitalize component name.
@@ -29,7 +18,7 @@ module.exports = class extends Generator {
     component() {
         const componentsDir = 'components';
         const libDir = 'lib';
-        const currentFolderName = this._getCurrentFolderName();
+        const currentFolderName = getCurrentFolderName();
 
         /**
          * User must be in a "lib" or "components" folder to create a component.
@@ -66,7 +55,7 @@ module.exports = class extends Generator {
              * check to see if "components" folder exists. If it doesn't, create
              * it. Then change into it.
              */
-            if (this._getCurrentFolderName().toLowerCase() === libDir) {
+            if (getCurrentFolderName().toLowerCase() === libDir) {
                 isInLib = true;
 
                 // If "components" directory doesn't exist, create it.

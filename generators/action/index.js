@@ -1,5 +1,6 @@
 const fs = require('fs');
 const Generator = require('yeoman-generator');
+const getCurrentFolderName = require('../../utils/getCurrentFolderName');
 const logger = require('../../utils/logger');
 
 module.exports = class extends Generator {
@@ -54,7 +55,7 @@ module.exports = class extends Generator {
         /**
          * Ensures user is in a valid folder. Otherwise we bail.
          */
-        switch (this._getCurrentFolderName()) {
+        switch (getCurrentFolderName()) {
             case 'actions':
             case 'mutators':
             case 'orchestrators':
