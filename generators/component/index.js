@@ -5,8 +5,6 @@ module.exports = class extends Generator {
     constructor(args, opts) {
         super(args, opts);
 
-        this.argument('componentName', { type: String, required: true });
-
         /**
          * Helper function to get the current working folder
          * name.
@@ -18,36 +16,71 @@ module.exports = class extends Generator {
 
             return currentFolder;
         }
+
+        /**
+         * Helper function to capitalize component name.
+         */
+        this._capitalizeFirstLetter = function(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
     }
 
     component() {
         const componentsDir = 'components';
-        const componentName = this.options.componentName;
-
-        let isInLib = false;
+        const libDir = 'lib';
+        const currentFolderName = this._getCurrentFolderName();
 
         /**
-         * If user is currently in a "lib" folder, we're good. Then,
-         * check to see if "components" folder exists. If it doesn't, create
-         * it. Then change into it.
+         * User must be in a "lib" or "components" folder to create a component.
+         * If not, just bail.
          */
-        if (this._getCurrentFolderName().toLowerCase() === 'lib') {
-            isInLib = true;
-
-            // If "components" directory doesn't exist, create it.
-            if (!fs.existsSync(componentsDir)) {
-                fs.mkdirSync(componentsDir);
-            }
-
-            // Go into "components" directory.
-            process.chdir(componentsDir);
+        if (currentFolderName !== libDir && currentFolderName !== componentsDir) {
+            this.log('Unable to create component (must be in "lib" or "components" directory).');
+            return;
         }
 
-        /**
-         * If user is a "components" folder and a component with the same name
-         * doesn't exist, we're good. If those conditions haven't been met, bail.
-         */
-        if (this._getCurrentFolderName().toLowerCase() === componentsDir) {
+        this.prompt([
+            {
+                type    : 'input',
+                name    : 'componentName',
+                message : `What's your component's name?`,
+                validate: (value) => {
+                    if (value.length) {
+                        return true;
+                    } else {
+                        return `You can't create a component without a name. C'mon.`
+                    }
+                },
+                filter: (value) => {
+                    return this._capitalizeFirstLetter(value);
+                }
+            }
+        ]).then(answers => {
+            const componentName = answers.componentName;
+
+            let isInLib = false;
+
+            /**
+             * If user is currently in a "lib" folder, we're good. Then,
+             * check to see if "components" folder exists. If it doesn't, create
+             * it. Then change into it.
+             */
+            if (this._getCurrentFolderName().toLowerCase() === libDir) {
+                isInLib = true;
+
+                // If "components" directory doesn't exist, create it.
+                if (!fs.existsSync(componentsDir)) {
+                    fs.mkdirSync(componentsDir);
+                }
+
+                // Go into "components" directory.
+                process.chdir(componentsDir);
+            }
+
+            /**
+             * If user is a "components" folder and a component with the same name
+             * doesn't exist, we're good. If those conditions haven't been met, bail.
+             */
             if (!fs.existsSync(`${componentName}.tsx`)) {
                 const componentDestinationPath = isInLib ? `components/${componentName}.tsx` : `${componentName}.tsx`;
                 const stylesDestinationPath = isInLib ? `components/${componentName}.scss` : `${componentName}.scss`;
@@ -68,8 +101,6 @@ module.exports = class extends Generator {
             } else {
                 this.log('Unable to create component (one with the same name already exists at this location).');
             }
-        } else {
-            this.log('Unable to create component (must be in "lib" or "components" directory).');
-        }
+        });
     }
 };
