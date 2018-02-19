@@ -1,6 +1,7 @@
-const Generator = require('yeoman-generator');
 const fs = require('fs');
+const Generator = require('yeoman-generator');
 const inquirer = require('inquirer');
+const logger = require('../../utils/logger');
 
 module.exports = class extends Generator {
     package() {
@@ -70,8 +71,7 @@ module.exports = class extends Generator {
                 fs.mkdirSync(subfolder);
             }));
 
-            // Let the user know we created the package.
-            this.log(`Successfully created the "${packageName}" package!`);
+            logger.success(`Successfully created the "${packageName}" package!`);
         });
     }
 };

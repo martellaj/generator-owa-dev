@@ -1,5 +1,6 @@
-const Generator = require('yeoman-generator');
 const fs = require('fs');
+const Generator = require('yeoman-generator');
+const logger = require('../../utils/logger');
 
 module.exports = class extends Generator {
     constructor(args, opts) {
@@ -59,7 +60,7 @@ module.exports = class extends Generator {
             case 'orchestrators':
                 break;
             default:
-                this.log('You must be in an "actions", "mutators", or "orchestrators" folder to create an action.');
+                logger.error('You must be in an "actions", "mutators", or "orchestrators" folder to create an action.');
                 return;
         }
 
@@ -119,6 +120,8 @@ module.exports = class extends Generator {
                     );
                     break;
             }
+
+            logger.success(`Successfully created the "${answers.actionName}" action!`);
         });
     }
 }

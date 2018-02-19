@@ -1,5 +1,6 @@
-const Generator = require('yeoman-generator');
 const fs = require('fs');
+const Generator = require('yeoman-generator');
+const logger = require('../../utils/logger');
 
 module.exports = class extends Generator {
     constructor(args, opts) {
@@ -35,7 +36,7 @@ module.exports = class extends Generator {
          * If not, just bail.
          */
         if (currentFolderName !== libDir && currentFolderName !== componentsDir) {
-            this.log('Unable to create component (must be in "lib" or "components" directory).');
+            logger.error('You must be in a "lib" or "components" folder to create a component.');
             return;
         }
 
@@ -98,8 +99,10 @@ module.exports = class extends Generator {
                     this.destinationPath(stylesDestinationPath),
                     { componentName: componentName }
                 );
+
+                logger.success(`Successfully created the "${componentName}" component!`);
             } else {
-                this.log('Unable to create component (one with the same name already exists at this location).');
+                logger.error('Unable to create component (one with the same name already exists at this location).');
             }
         });
     }
