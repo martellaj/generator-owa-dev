@@ -1,9 +1,9 @@
 {
   "name": "generator-owa-dev",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "files": [
-    "generators"
+    "generators", "utils"
   ],
   "keywords": [
     "yeoman-generator"
