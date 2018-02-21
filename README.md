@@ -8,7 +8,7 @@ Install `yo` and `generator-owa-dev`:
 npm install -g yo generator-owa-dev
 ```
 
-## Generators / Commands
+## Usage / Generators
 
 Currently supported generators:
 - App
