@@ -1,6 +1,9 @@
 # OWA Dev Yeoman Generator
 > Yeoman generator for quickly scaffolding common parts of the OWA React project, including packages, components, actions, and stores.
 
+## Maintenance Note
+Because of this project's interest from the OWA dev team, this project is no longer being maintained here and instead is being maintained in a Microsoft internal repository. Issues and PRs for this repository will no longer receive responses.
+
 ## Installation
 
 Install `yo` and `generator-owa-dev`:
