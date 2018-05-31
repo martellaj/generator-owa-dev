@@ -2,7 +2,7 @@ const chalk = require('chalk');
 const Generator = require('yeoman-generator');
 
 module.exports = class extends Generator {
-    foo() {
+    app() {
         console.log(
 `\n${chalk.white.bold('Currently supported generators:')}
   * ${chalk.cyan.bold('Action')}
