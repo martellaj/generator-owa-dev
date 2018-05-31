@@ -1,16 +1,19 @@
 {
-  "name": "generator-owa-dev",
-  "version": "0.1.2",
-  "description": "A Yeoman generator for the OWA dev team to quickly scaffold common parts of the OWA React project.",
-  "files": [
-    "generators",
-    "utils"
-  ],
-  "keywords": [
-    "yeoman-generator", "yeoman", "devtools", "owa"
-  ],
-  "dependencies": {
-    "inquirer": "^5.1.0",
-    "yeoman-generator": "^1.0.0"
-  }
+    "name": "generator-owa-dev",
+    "version": "0.2.0",
+    "description": "A Yeoman generator for the OWA dev team to quickly scaffold common parts of the OWA React project.",
+    "files": [
+        "generators",
+        "utils"
+    ],
+    "keywords": [
+        "yeoman-generator",
+        "yeoman",
+        "devtools",
+        "owa"
+    ],
+    "dependencies": {
+        "inquirer": "^5.1.0",
+        "yeoman-generator": "^2.0.5"
+    }
 }

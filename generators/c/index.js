@@ -12,10 +12,10 @@ module.exports = class extends Generator {
          */
         this._capitalizeFirstLetter = function(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
-        }
+        };
     }
 
-    component() {
+    c() {
         const componentsDir = 'components';
         const libDir = 'lib';
         const currentFolderName = getCurrentFolderName();
@@ -24,24 +24,29 @@ module.exports = class extends Generator {
          * User must be in a "lib" or "components" folder to create a component.
          * If not, just bail.
          */
-        if (currentFolderName !== libDir && currentFolderName !== componentsDir) {
-            logger.error('You must be in a "lib" or "components" folder to create a component.');
+        if (
+            currentFolderName !== libDir &&
+            currentFolderName !== componentsDir
+        ) {
+            logger.error(
+                'You must be in a "lib" or "components" folder to create a component.'
+            );
             return;
         }
 
         this.prompt([
             {
-                type    : 'input',
-                name    : 'componentName',
-                message : `What's your component's name?`,
-                validate: (value) => {
+                type: 'input',
+                name: 'componentName',
+                message: `What's your component's name?`,
+                validate: value => {
                     if (value.length) {
                         return true;
                     } else {
-                        return `You can't create a component without a name. C'mon.`
+                        return `You can't create a component without a name. C'mon.`;
                     }
                 },
-                filter: (value) => {
+                filter: value => {
                     return this._capitalizeFirstLetter(value);
                 }
             }
@@ -72,8 +77,12 @@ module.exports = class extends Generator {
              * doesn't exist, we're good. If those conditions haven't been met, bail.
              */
             if (!fs.existsSync(`${componentName}.tsx`)) {
-                const componentDestinationPath = isInLib ? `components/${componentName}.tsx` : `${componentName}.tsx`;
-                const stylesDestinationPath = isInLib ? `components/${componentName}.scss` : `${componentName}.scss`;
+                const componentDestinationPath = isInLib
+                    ? `components/${componentName}.tsx`
+                    : `${componentName}.tsx`;
+                const stylesDestinationPath = isInLib
+                    ? `components/${componentName}.scss`
+                    : `${componentName}.scss`;
 
                 // Copy over .tsx template.
                 this.fs.copyTpl(
@@ -89,9 +98,13 @@ module.exports = class extends Generator {
                     { componentName: componentName }
                 );
 
-                logger.success(`Successfully created the "${componentName}" component!`);
+                logger.success(
+                    `Successfully created the "${componentName}" component!`
+                );
             } else {
-                logger.error('Unable to create component (one with the same name already exists at this location).');
+                logger.error(
+                    'Unable to create component (one with the same name already exists at this location).'
+                );
             }
         });
     }
