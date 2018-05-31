@@ -1,6 +1,6 @@
 # OWA Dev Yeoman Generator
 
-> Yeoman generator for quickly scaffolding common parts of the OWA React project, including packages, components, actions, and stores.
+> Yeoman generator for quickly scaffolding common parts of the OWA React project, including packages, components, mutators, and orchestrators.
 
 ## Installation
 
